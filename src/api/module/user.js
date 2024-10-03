@@ -1,8 +1,8 @@
-import server from '../server'
+import axios from "axios";
 
 export const userApi = {
-  login: async() => {
-    const data = await server.post('/login')
-    console.log(data);
+  login: async(username, password) => {
+    const { data, status } = await axios.post('https://dummyjson.com/auth/login', { username, password })
+    return { data, code: status }
   }
 }
