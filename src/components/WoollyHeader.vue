@@ -12,7 +12,7 @@ import { setLang } from '@/utils/localStorage';
   const changeLanguage = (lang) => {
     locale.value = lang
   }
-  console.log(locale);
+
   const translateButton = ref([
     {
       key: 'zh-TW',

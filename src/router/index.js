@@ -30,11 +30,6 @@ const router = createRouter({
       component: () => import('@/views/Product/index.vue')
     },
     {
-      path: '/product_con/:id',
-      name: 'productDetail',
-      component: () => import('@/views/Pro_con/index.vue')
-    },
-    {
       path: '/:pathMatch(.*)',
       name: 'notFound',
       component: () => import('@/views/NotFound/index.vue')
@@ -42,6 +37,10 @@ const router = createRouter({
     {
       path: '/cart',
       component: () => import('@/views/Cart/index.vue')
+    },
+    {
+      path: '/checkout',
+      component: () => import('@/views/Checkout/index.vue')
     },
 
   ]

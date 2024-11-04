@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "Woolly-Woods手作烤布丁",
+    "image": "https://www.mashup.com.tw/bakery/product/bimg/pro2_20181012171225.jpg",
+    "desc": "選用新鮮羊奶和天然食材，口感滑順，香甜可口。每一口都是無與倫比的美味，絕對是甜點愛好者的心頭好，讓你沉醉於其獨特風味之中。",
+    "price": 45,
+    "amount": 1
+  },
+  {
+    "id": 2,
+    "title": "Woolly-Woods羊乳片",
+    "image": "https://www.cng.com.tw/archive/image/chocolate_pic08.jpg",
+    "desc": "採用新鮮羊奶精製而成，口感香濃、酥脆，健康美味。富含營養，適合作為日常零食，讓每一口都帶來自然的甘甜與滿足感，絕對令人難以抗拒。",
+    "price": 120,
+    "amount": 1
+  },
+  {
+    "id": 3,
+    "title": "Woolly-Woods原味羊奶",
+    "image": "https://www.goat.org.tw/upload/news/c80c67bd.jpg",
+    "desc": "來自健康羊群，經過精心處理，保留天然風味。每一口都充滿濃郁奶香，富含營養，適合各種飲食需求，是家庭餐桌上的理想選擇。",
+    "price": 100,
+    "amount": 1
+  },
+  {
+    "id": 4,
+    "title": "Woolly-Woods牧場冰淇淋",
+    "image": "https://ezgo.ardswc.gov.tw/ViewAgriSouvenir.35449/2021030107.jpg",
+    "desc": "選用新鮮天然原料，口感絲滑細膩，帶來濃郁的奶香與香甜。無論是炎炎夏日或家庭聚會，都是享受美味的絕佳選擇，讓每一口都充滿幸福感。",
+    "price": 45,
+    "amount": 1
+  },
+  {
+    "id": 5,
+    "title": "Woolly-Woods羊乳香浴乳",
+    "image": "https://www.honno.com.tw/archive/image//ph_hibiscus.jpg",
+    "desc": "富含天然羊乳成分，能有效滋潤肌膚。輕柔的泡沫包覆全身，散發淡雅香氣，讓沐浴時光倍感舒適與放鬆，適合日常使用，呵護每一寸肌膚。",
+    "price": 100,
+    "amount": 1
+  },
+  {
+    "id": 6,
+    "title": "Woolly-Woods羊奶優格",
+    "image": "https://static.owlting.com/market/public/items/thumbs/640x480/item_20631_ajcsKoOQvgefmOWGkgQ5VXTPIOgtCDnT4qpvSEVv",
+    "desc": "採用新鮮羊奶製作，口感滑順，香醇可口。富含益生菌和營養素，幫助消化，增強免疫力。健康美味，適合全家人享用，帶來美好的早餐選擇。",
+    "price": 55,
+    "amount": 1
+  },
+  {
+    "id": 7,
+    "title": "Woolly-Woods羊奶香皂",
+    "image": "https://www.cng.com.tw/archive/image/product1/images/_MG_8733_630_486.png",
+    "desc": "富含天然羊奶，溫和不刺激，深層滋潤肌膚。添加精油，散發淡雅香氣，清潔同時呵護肌膚，適合各類型肌膚使用，讓你擁有柔嫩光滑的觸感。",
+    "price": 45,
+    "amount": 1
+  }
+]

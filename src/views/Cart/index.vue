@@ -1,7 +1,9 @@
 <script setup>
 import Layout from '@/components/Layout.vue'
-import { ref } from 'vue';
-
+import { useRouter } from 'vue-router'
+import { getCart, setToCart} from '@/utils/localStorage';
+import { computed, ref  } from 'vue';
+const cart = ref (getCart())
 
 const tableColumns = ref([
   {
@@ -25,45 +27,36 @@ const tableColumns = ref([
     key: 'action'
   },
 ]);
+const tableData = computed(() => {
+  return cart.value.map(product => ({
+    id: product.id,
+    product: product.title,
+    price: product.price,
+    amount: product.amount
+  }))
+})
+const removeFromCart = (id) => {
+  const newCart = cart.value.filter(product => product.id !== id)
+ setToCart(newCart)
+ cart.value = newCart
+}
+const total = computed(() => {
+  return cart.value.reduce((sum, product) => {
+    return sum + product.price * product.amount;
+  }, 0);
+});
+const selectedShipping = ref(""); 
 
-const tableData = ref([
-  {
-    product: '牛奶',
-    price: 100,
-    amount: 1,
-  },
-  {
-    product: '優酪乳',
-    price: 100,
-    amount: 1,
-  },
-])
-
-
-
+const router = useRouter()
+const checkout = () =>{
+  router.push('/checkout')
+}
 
 </script>
 
 <template>
 <layout>
- <a-steps
-    :current="1"
-    :items="[
-      {
-        title: '購物車',
-        description,
-      },
-      {
-        title: '填寫資料',
-        description,
-      },
-      {
-        title: '訂單確認',
-        description,
-      },
-    ]"
-  ></a-steps>
-  <h1 class="text-xl mt-10 mb-5">購物車內容</h1>
+  <h1 class="text-lg sm:text-xl mb-4">購物車內容</h1>
 <a-table :columns="tableColumns" :data-source="tableData" :pagination="false">
   <template #headerCell="{ column }">
     <span class="text-base">{{ column.name }}</span>
@@ -82,35 +75,54 @@ const tableData = ref([
       {{ record.price * record.amount }}
     </template>
     <template v-if="column.key === 'action'">
-      <a-button type="primary" danger ghost @click="removeItem(record.key)">移除</a-button>
+      <a-button type="primary" danger ghost @click="removeFromCart(record.id)">移除</a-button>
     </template>
   </template>
 </a-table>
-  <a-row>
+<a-row>
     <a-col :span="12">
-    <div class="my-20">
-      <h1 class="text-xl">選擇配送及付款方式</h1>
-      <div class="mt-10">
-      <select id="shipping-method" v-model="selectedShipping" class="border rounded p-2">
-        <option disabled value="">請選擇配送方式</option>
-        <option value="standard">黑貓宅配(貨到付款)</option>
-        <option value="express">全家(取貨付款)</option>
-        <option value="pickup">7-11(取貨付款)</option>
-        <option value="pickup">黑貓宅配(信用卡 / LINE Pay / Apple Pay / 街口 / ATM 轉帳付款)</option>
-        <option value="pickup">全家(信用卡 / LINE Pay / Apple Pay / 街口 / ATM 轉帳付款)</option>
-        <option value="pickup">7-11(信用卡 / LINE Pay / Apple Pay / 街口 / ATM 轉帳付款)</option>
-      </select>
+      <a-row class="h-full ml-40 justify-start">
+    <h1 class="text-lg sm:text-xl mt-10 mb-4">填寫訂購資料</h1>
+    <a-input class="mb-4" v-model:value="value" placeholder="請輸入取貨人姓名" />
+    <a-input class="mb-4" v-model:value="value" placeholder="請輸入自家/便利商店地址" />
+    <a-input v-model:value="value" placeholder="請輸入電子郵件" />
+    <div class="mt-4">
+    <select id="shipping-method" v-model="selectedShipping" class="border rounded p-2 w-full mt-2">
+      <option value="" disabled selected>請選擇配送方式</option><!-- 設定為預設選項 -->
+      <option value="pickup">黑貓宅配(取貨付款)</option>
+      <option value="pickup">7-11(取貨付款)</option>
+      <option value="express">全家(取貨付款)</option>
+      <option value="standard">萊爾富(取貨付款)</option>
+    </select>
+  </div>
+  </a-row>
+</a-col>
+    <a-col class="mt-20 ml-5" :span="8">
+      <div class="shopping-cart-summary border p-4 rounded">
+    <h1 class="text-lg sm:text-xl mb-12">購物車總計</h1>
+    <div class="flex justify-between font-bold mb-4">
+      <span>總計：</span>
+      <span>{{ total }} 元</span>
     </div>
+    <div class="mt-10">
+      <a-button @click="checkout" type="primary" style="background-color: #8B0000">確認送出</a-button>
     </div>
-    </a-col>
-    <a-col :span="12">
-    <div class="mt-40 flex justify-center">
-        <a-button class="mr-10 w-auto" type="primary">前往結帳</a-button>
-        <a-button type="primary">回購物車</a-button>
-
-    </div>
+  </div>
     </a-col>
   </a-row>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

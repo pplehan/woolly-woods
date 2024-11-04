@@ -1,8 +1,8 @@
 import server from '../server'
 
 export const productApi = {
-  getProducts: async() => {
-    const data = await server.get('/products')
+  getProduct: async() => {
+    const data = await server.get('/product')
     return data
   }
 }

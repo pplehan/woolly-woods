@@ -1,58 +1,48 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import Layout from '@/components/Layout.vue';
+import { ref } from 'vue';
+// import { useRouter } from 'vue-router';
+import { productApi } from '@/api/module/product'
+import { onMounted } from 'vue';
+import { setToCart, getCart } from '@/utils/localStorage'
+import { message } from 'ant-design-vue';
+import router from '@/router';
 
-const productList = ref([
-  {
-    id: 1,
-    title: "Woolly-Woods手作烤布丁",
-    image: "https://www.mashup.com.tw/bakery/product/bimg/pro2_20181012171225.jpg",
-    desc: "售價45元"
-  },
-  {
-    id: 2,
-    title: "Woolly-Woods羊乳片",
-    image: "https://www.cng.com.tw/archive/image/chocolate_pic08.jpg",
-    desc: "售價120元"
-  },
-  {
-    id: 3,
-    title: "Woolly-Woods原味羊奶",
-    image: "https://www.goat.org.tw/upload/news/c80c67bd.jpg",
-    desc: "售價100元"
-  },
-  {
-    id: 4,
-    title: "Woolly-Woods牧場冰淇淋",
-    image: "https://ezgo.ardswc.gov.tw/ViewAgriSouvenir.35449/2021030107.jpg",
-    desc: "售價45元"
-  },
-  {
-    id: 5,
-    title: "Woolly-Woods羊乳香浴乳",
-    image: "https://www.honno.com.tw/archive/image//ph_hibiscus.jpg",
-    desc: "售價75元"
-  },
-  {
-    id: 6,
-    title: "Woolly-Woods羊奶優格",
-    image: "https://static.owlting.com/market/public/items/thumbs/640x480/item_20631_ajcsKoOQvgefmOWGkgQ5VXTPIOgtCDnT4qpvSEVv",
-    desc: "售價50元"
-  },
-  {
-    id: 7,
-    title: "Woolly-Woods羊奶香皂",
-    image: "https://www.cng.com.tw/archive/image/product1/images/_MG_8733_630_486.png",
-    desc: "售價40元"
+const productList = ref ([])
+
+const getProductData = async() => {
+  const { data } = await productApi.getProduct();
+  productList.value = data
+  console.log(data);
+}
+
+const addToCart = (item) => {
+  let cart = getCart() || []
+  if (!cart.length) {
+    cart.push(item)
+    setToCart(cart)
+    message.success('成功加入購物車')
+    return
   }
-]);
+  const isProductExist = cart.some(product => product.id === item.id )
+  if (isProductExist) {
+    const products = cart.map(product => {
+      if (product.id === item.id) {
+        product = item
+        return product
+      }
+        return product
+    })
+    setToCart(products)
+  } else {
+    const products = [...cart, item]
+    setToCart(products)
+  }
+   message.success('成功加入購物車')
+}
 
-const router = useRouter();
+onMounted(() => getProductData());
 
-const goToProductDetail = (id) => {
-  router.push({ name: 'productDetail', params: { id } });
-};
 </script>
 
 <template>
@@ -68,13 +58,19 @@ const goToProductDetail = (id) => {
         </template>
         <a-card-meta :title="item.title">
           <template #description>{{ item.desc }}</template>
-        </a-card-meta>
-        <a-button class="w-2/5 mt-5 bg-red-800 text-white" type="primary"
-          size="middle" style="background-color: #8B0000 !important; border: none !important; box-shadow: none !important;" onmouseover="this.style.backgroundColor='#FFC0CB'" onmouseout="this.style.backgroundColor='#8B0000'"
-          @click="goToProductDetail(item.id)">
-          我要購買
-        </a-button>
-      </a-card>
+            </a-card-meta>
+          <p class="mt-2 text-lg font-bold">NT${{ item.price }}</p>
+            <div class="flex items-center justify-between mt-4">
+              <div>
+            <a-input-number v-model:value="item.amount" />
+      </div>
+
+    <a-button class="w-2/5 bg-red-800 text-white" type="primary" @click="addToCart(item)"
+      size="middle" style="background-color: #8B0000;"
+      >加入購物車
+    </a-button>
+  </div>
+</a-card>
     </div>
   </Layout>
 </template>

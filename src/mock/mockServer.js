@@ -1,12 +1,12 @@
 import Mock from "mockjs";
 import login from "./login.json"
-import products from "./products.json"
+import product from "./product.json"
 
 Mock.mock('/mock/login', {
   code: 200,
   data: login
 })
-Mock.mock('/mock/products', {
+Mock.mock('/mock/product', {
   code: 200,
-  data: products
+  data: product
 })
