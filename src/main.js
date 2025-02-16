@@ -1,3 +1,4 @@
+import { someFunction } from './utils/someModule.js';
 import { createApp } from 'vue'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
