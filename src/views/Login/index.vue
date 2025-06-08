@@ -10,8 +10,7 @@ const formData = reactive({
   username: '',
   password: ''
 })
-// username: 'emilys',
-// password: 'emilyspass',
+
 
 const router = useRouter()
 const goToHome = () => {
@@ -39,11 +38,11 @@ const login = async (e) => {
 };
 
 
-onMounted(()=>{
-  if (token.value){ //登入狀態
-    goToHome()//強制導到首頁
-  }
-})
+// onMounted(()=>{
+//   if (token.value){ //登入狀態
+//     goToHome()//強制導到首頁
+//   }
+// })
 
 </script>
 
